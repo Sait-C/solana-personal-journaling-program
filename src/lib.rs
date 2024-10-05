@@ -54,6 +54,7 @@ pub mod personal_journaling {
         diary_account.content = _content.to_string();
         diary_account.date = user_date.clone();
         diary_account.uuid = _uuid.to_string();
+        diary_account.image = _image.to_string();
 
         // Set last diary date of user profile
         user_profile.last_diary_date = user_date.clone();
