@@ -98,7 +98,7 @@ pub struct InitializeUser<'info> {
 }
 
 #[derive(Accounts)]
-#[instruction(user_date: String)]
+#[instruction(user_date: String, content: String, title: String, image: String)]
 pub struct AddDiary<'info> {
     #[account(
         mut,
@@ -113,7 +113,8 @@ pub struct AddDiary<'info> {
         seeds = [DIARY_TAG, authority.key.as_ref(), date_seed(&user_date)],
         bump,
         payer = authority,
-        space = std::mem::size_of::<DiaryAccount>() + 8,
+        // When you make diary updatable, change it to fixed values(maybe max)
+        space = 8 + 32 + (4 + content.len()) + (4 + title.len()) + (4 + image.len()) + (4 + 12) + (4 + 40),
     )]
     pub diary_account: Account<'info, DiaryAccount>,
 
